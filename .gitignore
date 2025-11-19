@@ -1,0 +1,19 @@
+
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Environments
+.env
+.env.* 
+
+# Builds
+dist/
+build/
+
+# Vite
+frontend/dist/
+
+# NestJS
+backend/dist/
