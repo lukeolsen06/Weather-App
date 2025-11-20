@@ -4,6 +4,16 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Enable CORS for frontend communication
+  const corsOriginEnv = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
+  console.log('Allowed CORS origins:', corsOriginEnv);
+
+  app.enableCors({
+    origin: corsOriginEnv,
+    credentials: true,
+  });
+
   app.setGlobalPrefix('api')
 
   // Swagger documentation setup 
