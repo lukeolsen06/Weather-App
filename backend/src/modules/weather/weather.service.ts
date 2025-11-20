@@ -16,7 +16,7 @@ export class WeatherService {
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
   async getWeather(location: string): Promise<WeatherResponseDto> {
-
+    
     // Check to see if location is in cache. If it is, return its Dto values
     const value = await this.cacheManager.get<WeatherResponseDto>(location);
     if (value) {

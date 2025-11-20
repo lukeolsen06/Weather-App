@@ -1,9 +1,9 @@
 
-
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { WeatherModule } from './modules/weather/weather.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-ioredis';
 
 @Module({
 
@@ -17,7 +17,10 @@ import { CacheModule } from '@nestjs/cache-manager';
 
         CacheModule.register({
             isGlobal: true,
-            ttl: 15 * 1000 * 60 // 15 minutes TTL for weather response data
+            store: redisStore as any,
+            ttl: 15 * 60 * 1000, // 15 minutes TTL for weather response data
+            host: '172.17.0.2',
+            port: 6379,
         }),
 
         WeatherModule
