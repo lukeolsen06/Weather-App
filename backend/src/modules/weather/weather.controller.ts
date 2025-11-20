@@ -1,6 +1,6 @@
-import { Controller, Get, Query, Param} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { WeatherService } from './weather.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiParam } from '@nestjs/swagger';
 import { WeatherResponseDto } from './weather.dto';
 
 @ApiTags('weather') // Groups endpoints in Swagger documentation
@@ -13,6 +13,7 @@ export class WeatherController {
    */
   @Get('')
   @ApiOperation({summary: 'Retrieve current weather information from a location'})
+  @ApiParam({ name: 'location', description: 'Location of where to retrieve weather. Can be by name, coordinates, or zip' })
   async getWeather(@Query('location') location: string): Promise<WeatherResponseDto> {
     return this.weatherService.getWeather(location);
   }

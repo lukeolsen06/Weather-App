@@ -19,7 +19,7 @@ export class WeatherService {
             query: location,
             units: 'f',
             access_key: process.env.WEATHERSTACK_API_KEY,
-            langauge: "en"
+            language: "en"
           }
         });
         
