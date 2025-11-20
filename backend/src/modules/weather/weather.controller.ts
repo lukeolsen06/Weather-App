@@ -11,7 +11,7 @@ export class WeatherController {
   /**
    * Example: GET /api/weather?location=Louisville
    */
-  @Get('')
+  @Get()
   @ApiOperation({summary: 'Retrieve current weather information from a location'})
   @ApiParam({ name: 'location', description: 'Location of where to retrieve weather. Can be by name, coordinates, or zip' })
   async getWeather(@Query('location') location: string): Promise<WeatherResponseDto> {

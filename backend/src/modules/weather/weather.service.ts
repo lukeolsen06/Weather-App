@@ -19,9 +19,12 @@ export class WeatherService {
             query: location,
             units: 'f',
             access_key: process.env.WEATHERSTACK_API_KEY,
-            language: "en"
           }
         });
+
+        if (response.data) {
+          console.log("Received data!")
+        }
         
         const data = response.data
 
@@ -43,6 +46,7 @@ export class WeatherService {
         }
     }
     catch (error) {
+      console.error('Weatherstack error:', error.response?.data)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       throw new BadRequestException(`Failed to gather weather info: ${errorMessage}`);
     }
