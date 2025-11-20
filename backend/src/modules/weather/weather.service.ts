@@ -1,5 +1,7 @@
-import { Injectable, Logger, BadRequestException } from '@nestjs/common';;
-import {WeatherResponseDto} from './weather.dto';
+import { Injectable, Logger, BadRequestException, Inject } from '@nestjs/common';;
+import { WeatherResponseDto } from './weather.dto';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager'
 import axios from 'axios';
 
 
@@ -10,9 +12,18 @@ import axios from 'axios';
 export class WeatherService {
 
   private readonly logger = new Logger(WeatherService.name);
-  
+
+  constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
+
   async getWeather(location: string): Promise<WeatherResponseDto> {
-    
+
+    // Check to see if location is in cache. If it is, return its Dto values
+    const value = await this.cacheManager.get<WeatherResponseDto>(location);
+    if (value) {
+      console.log(`Got weather data for ${value.name} from cache!`)
+      return value
+    }
+
     try {
       const response = await axios.get(`${process.env.WEATHERSTACK_URL}/current`, {
           params: {
@@ -28,7 +39,8 @@ export class WeatherService {
         
         const data = response.data
 
-        return {
+        // The weather info to return to frontend. Matches WeatherResponseDto
+        const weather_info = {
           name: data.location.name,
           country: data.location.country,
           lat: data.location.lat,
@@ -45,6 +57,12 @@ export class WeatherService {
           visibility: data.current.visibility,
           uv_index: data.current.uv_index
         }
+
+        // Location has a TTL of 15 minutes in cache
+        await this.cacheManager.set(location, weather_info);
+        console.log(`Stored ${weather_info.name} in cache`)
+
+        return weather_info
     }
     catch (error) {
       console.error('Weatherstack error:', error.response?.data)
