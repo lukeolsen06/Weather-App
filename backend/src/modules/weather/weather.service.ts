@@ -23,7 +23,7 @@ export class WeatherService {
     // Check to see if location is in cache. If it is, return its Dto values
     const value = await this.cacheManager.get<WeatherResponseDto>(locationNormed);
     if (value) {
-      console.log(`Got weather data for ${value.name} from cache!`)
+      console.log(`Cache hit! Got weather data for ${value.name} from cache!`)
       return value
     }
 
