@@ -41,7 +41,8 @@ export class WeatherService {
           wind_speed: data.current.wind_speed,
           precip: data.current.precip,
           humidity: data.current.humidity,
-          feelslike: data.current.feels_like,
+          feelslike: data.current.feelslike,
+          visibility: data.current.visibility,
           uv_index: data.current.uv_index
         }
     }

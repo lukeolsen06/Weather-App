@@ -49,11 +49,15 @@ export class WeatherResponseDto {
 
     @ApiProperty()
     @IsNumber()
-    feelslike: number;
+    feelslike!: number;
 
     @ApiProperty()
     @IsNumber()
-    uv_index: number;
+    uv_index!: number;
+
+    @ApiProperty()
+    @IsNumber()
+    visibility!: number;
 
     @ApiProperty()
     @IsArray()
