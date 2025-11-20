@@ -1,8 +1,52 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';;
+import {WeatherResponseDto} from './weather.dto';
+import axios from 'axios';
 
+
+/**
+ * Gather weather data from WeatherStack API based on query location
+**/
 @Injectable()
 export class WeatherService {
-  getHello(): string {
-    return 'Hello World!';
+
+  private readonly logger = new Logger(WeatherService.name);
+  
+  async getWeather(location: string): Promise<WeatherResponseDto> {
+    
+    try {
+      const response = await axios.get(`${process.env.WEATHERSTACK_URL}/current`, {
+          params: {
+            query: location,
+            units: 'f',
+            access_key: process.env.WEATHERSTACK_API_KEY,
+            langauge: "en"
+          }
+        });
+        
+        const data = response.data
+
+        return {
+          name: data.location.name,
+          country: data.location.country,
+          lat: data.location.lat,
+          lon: data.location.lon,
+          temperature: data.current.temperature,
+          sunrise: data.current.astro.sunrise,
+          sunset: data.current.astro.sunset,
+          weather_descriptions: data.current.weather_descriptions,
+          cloudcover: data.current.cloudcover,
+          wind_speed: data.current.wind_speed,
+          precip: data.current.precip,
+          humidity: data.current.humidity,
+          feelslike: data.current.feels_like,
+          uv_index: data.current.uv_index
+        }
+    }
+    catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestException(`Failed to gather weather info: ${errorMessage}`);
+    }
+
+
   }
 }
