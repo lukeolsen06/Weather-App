@@ -37,7 +37,7 @@ export class WeatherService {
         });
 
         if (response.data) {
-          console.log("Received data!")
+          console.log(`Received data! Request Type is ${response.data.request.type}`)
         }
         
         const data = response.data
