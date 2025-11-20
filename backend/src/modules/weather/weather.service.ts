@@ -63,7 +63,7 @@ export class WeatherService {
 
         // Location has a TTL of 15 minutes in cache
         await this.cacheManager.set(locationNormed, weather_info);
-        console.log(`Stored ${weather_info.name} in cache`)
+        console.log(`Stored ${locationNormed} in cache`)
 
         return weather_info
     }
