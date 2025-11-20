@@ -38,5 +38,11 @@ export class WeatherResponseDto {
     @ApiProperty()
     uv_index: number;
 
+    @ApiProperty()
+    weather_descriptions!: string[];
+
+    @ApiProperty()
+    weather_icons!: string[]
+
 
 }
