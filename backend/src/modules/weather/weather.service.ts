@@ -16,9 +16,12 @@ export class WeatherService {
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
   async getWeather(location: string): Promise<WeatherResponseDto> {
+
+    const locationNormed = location.trim() //remove leading and trailing white spaces from input
+    console.log(`Normalized location: ${locationNormed}`)
     
     // Check to see if location is in cache. If it is, return its Dto values
-    const value = await this.cacheManager.get<WeatherResponseDto>(location);
+    const value = await this.cacheManager.get<WeatherResponseDto>(locationNormed);
     if (value) {
       console.log(`Got weather data for ${value.name} from cache!`)
       return value
@@ -27,7 +30,7 @@ export class WeatherService {
     try {
       const response = await axios.get(`${process.env.WEATHERSTACK_URL}/current`, {
           params: {
-            query: location,
+            query: locationNormed,
             units: 'f',
             access_key: process.env.WEATHERSTACK_API_KEY,
           }
@@ -59,7 +62,7 @@ export class WeatherService {
         }
 
         // Location has a TTL of 15 minutes in cache
-        await this.cacheManager.set(location, weather_info);
+        await this.cacheManager.set(locationNormed, weather_info);
         console.log(`Stored ${weather_info.name} in cache`)
 
         return weather_info
