@@ -11,9 +11,15 @@ function App() {
   const [weatherCards, setWeatherCards] = useState<WeatherDto[]>([])
 
   const addWeatherCard = (weather: WeatherDto) => {
-   // Do not duplicate cards. Only place new card and remove old one if current_time value  has changed, as this reveals new weather data.
+   
+    /* Do not duplicate cards. Only place new card and remove old one if current_time value  has changed, as this reveals new weather data.*/
+    
+    // Locations can share the same name, so have to check coordinates
     setWeatherCards(prev => {
-      const existing = prev.find(w => w.name === weather.name);
+      const existing = prev.find(w => 
+        w.name === weather.name && 
+        w.lat === weather.lat && 
+        w.lon === weather.lon);
 
       // If no cards in list, add
       if (!existing) {
@@ -29,11 +35,14 @@ function App() {
 
       // At this point, the current times do not match, so this is a new weather instance. Re-render array, modifying in-place if location has same name
       return prev.map(w => 
-        w.name === weather.name? weather : w
+        w.name === weather.name && 
+        w.lat === weather.lat && 
+        w.lon === weather.lon 
+        ? weather 
+        : w
       );
     });
   }
-
 
   return (
     <>
