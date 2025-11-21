@@ -10,6 +10,7 @@ class SearchWeatherService {
         const cleanLocation = normalizeLocation(location);
         console.log(`Normalized location: ${cleanLocation.value}`)
 
+        // Fetch the Weather API data
         try {
             const response = await axios.get<WeatherDto>(`${import.meta.env.VITE_BACKEND_URL}/weather?location=${cleanLocation.value}`)
             if (response.data) {
