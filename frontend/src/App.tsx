@@ -8,20 +8,32 @@ import bg from './assets/background.jpg';
 
 function App() {
 
-  const backgroundColor = {
-    backgroundColor: 'oklch(88.2% 0.059 254.128)',
-    minHeight: '100vh'
-  }
-
   const [weatherCards, setWeatherCards] = useState<WeatherDto[]>([])
 
   const addWeatherCard = (weather: WeatherDto) => {
-    
-    // No need to duplicate cards
-    setWeatherCards(prev => 
-      prev.some(w => w.name === weather.name) 
-        ? prev : [...prev, weather])
+   // Do not duplicate cards. Only place new card and remove old one if current_time value  has changed, as this reveals new weather data.
+    setWeatherCards(prev => {
+      const existing = prev.find(w => w.name === weather.name);
+
+      // If no cards in list, add
+      if (!existing) {
+        return [...prev, weather];
+      }
+
+      console.log(`Current time for ${weather.name} is ${weather.localtime}`)
+      // If card name is in the list and the returned time matches, the data was gathered from cache. Don't duplicate
+      if (existing.localtime === weather.localtime) {
+        console.log("Found previous card, not updating list")
+        return prev;
+      }
+
+      // At this point, the current times do not match, so this is a new weather instance. Re-render array, modifying in-place if location has same name
+      return prev.map(w => 
+        w.name === weather.name? weather : w
+      );
+    });
   }
+
 
   return (
     <>

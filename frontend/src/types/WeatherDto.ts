@@ -31,6 +31,6 @@ export type WeatherDto = {
 
     weather_descriptions: string[];
 
-    current_time: string
+    localtime: string
 
 }

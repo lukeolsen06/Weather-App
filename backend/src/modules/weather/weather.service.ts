@@ -42,6 +42,7 @@ export class WeatherService {
         
         const data = response.data
 
+
         // The weather info to return to frontend. Matches WeatherResponseDto
         const weather_info = {
           name: data.location.name,
@@ -59,7 +60,7 @@ export class WeatherService {
           feelslike: data.current.feelslike,
           visibility: data.current.visibility,
           uv_index: data.current.uv_index,
-          current_time: data.current.observation_time
+          localtime: data.location.localtime
         }
 
         // Location has a TTL of 15 minutes in cache

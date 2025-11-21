@@ -64,8 +64,8 @@ export class WeatherResponseDto {
     weather_descriptions!: string[];
 
     @ApiProperty()
-    @IsArray()
-    current_time!: string[];
+    @IsString()
+    localtime!: string;
 
 
 

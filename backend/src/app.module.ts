@@ -22,7 +22,7 @@ import { APP_GUARD } from '@nestjs/core';
         CacheModule.registerAsync({
             useFactory: async () => ({
                 stores: [createKeyv('redis://localhost:6379')], //This will be the Redis URI in production
-                ttl: 10 * 60 * 1000 
+                ttl: 1 * 60 * 1000
             }),
             isGlobal: true
         }),
