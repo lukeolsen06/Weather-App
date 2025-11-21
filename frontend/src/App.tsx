@@ -1,5 +1,7 @@
 import SearchBar from './components/SearchBar'
 import TitleSection from './components/TitleSection'
+import WeatherCardList from './components/WeatherCardList'
+import GlobalMap from './components/Globe'
 
 function App() {
 
@@ -12,7 +14,9 @@ function App() {
     <>
       <div className="App" style={backgroundColor}>
         <TitleSection />
-        <SearchBar></SearchBar>
+        <SearchBar />
+        <WeatherCardList />
+        <GlobalMap />
       </div>
     </>
   )

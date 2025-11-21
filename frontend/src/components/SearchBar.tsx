@@ -28,6 +28,9 @@ const SearchBar = () => {
     } catch (err: any) {
         setErrMessage(err.message)
     }
+
+    //Clear search after user submits
+    setSearchLocation('')
   }
 
   return (
