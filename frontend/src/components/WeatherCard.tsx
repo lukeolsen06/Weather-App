@@ -1,5 +1,5 @@
 import type { WeatherDto } from '../types/WeatherDto';
-import { Sun, Cloud, CloudRain, Snowflake, Haze, CloudFog, CloudDrizzle, SunDim } from "lucide-react"
+import { Cloud } from "lucide-react"
 import weatherIconMap from '../utils/weatherIconMap'
 
 interface WeatherProps {

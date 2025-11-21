@@ -1,4 +1,4 @@
-import { Sun, Cloud, CloudRain, Snowflake, Haze, CloudFog, CloudDrizzle, SunDim } from 'lucide-react'
+import { Sun, Cloud, CloudRain, Snowflake, Haze, CloudFog, SunDim } from 'lucide-react'
 import type { JSX } from 'react';
 
 const weatherIconMap: Record<string, JSX.Element> = {

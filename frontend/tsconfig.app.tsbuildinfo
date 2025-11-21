@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/searchbar.tsx","./src/components/titlesection.tsx","./src/components/weathercard.tsx","./src/components/weathercardlist.tsx","./src/services/searchweatherservice.ts","./src/types/weatherdto.ts","./src/utils/normalizelocation.ts","./src/utils/weathericonmap.tsx"],"version":"5.9.3"}

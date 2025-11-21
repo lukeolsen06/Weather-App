@@ -1,7 +1,6 @@
 import SearchBar from './components/SearchBar'
 import TitleSection from './components/TitleSection'
 import WeatherCardList from './components/WeatherCardList'
-import GlobalMap from './components/Globe'
 import type { WeatherDto } from './types/WeatherDto'
 import { useState } from 'react'
 import bg from './assets/background.jpg';
@@ -50,7 +49,6 @@ function App() {
         <TitleSection />
         <SearchBar onFound={addWeatherCard}/>
         <WeatherCardList weatherCards={weatherCards}/>
-        <GlobalMap />
       </div>
     </>
   )
