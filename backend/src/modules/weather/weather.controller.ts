@@ -15,6 +15,7 @@ export class WeatherController {
   @ApiOperation({summary: 'Retrieve current weather information from a location'})
   @ApiQuery({ name: 'location', required: true, description: 'Location of where to retrieve weather (city, zip, or coordinates)', example: 'Charlotte' })
   async getWeather(@Query('location') location: string): Promise<WeatherResponseDto> {
+    console.log('Received location', location)
     return this.weatherService.getWeather(location);
   }
 }
