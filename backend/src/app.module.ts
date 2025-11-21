@@ -21,7 +21,7 @@ import { APP_GUARD } from '@nestjs/core';
         // TTL of 10 minutes
         CacheModule.registerAsync({
             useFactory: async () => ({
-                stores: [createKeyv('redis://localhost:6379')], //This will be the Redis URI in production
+                stores: [createKeyv('process.env.REDIS_URL')], //This will be the Redis URI in production
                 ttl: 1 * 60 * 1000
             }),
             isGlobal: true
