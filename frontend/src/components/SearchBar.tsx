@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import SearchWeatherService from "../services/SearchWeatherService.ts";
-import WeatherCard from './WeatherCard';
+import type { WeatherDto } from '../types/WeatherDto.ts';
 
-const SearchBar = () => {
+type SearchBarProps = {
+  onFound: (weather: WeatherDto) => void
+}
+
+const SearchBar = ( {onFound}: SearchBarProps) => {
 
   const [searchLocation, setSearchLocation] = useState('')
   const [errMessage, setErrMessage] = useState('')
-  const [weatherCard, setWeatherCards] = useState({})
 
   const handleInputChange = (e: any) => {
     setSearchLocation(e.target.value)
@@ -20,10 +23,11 @@ const SearchBar = () => {
       
       if (!weather_info?.name) {
         setErrMessage("No name for given location found. Please try a different one.")
+        return;
       }
-      else {
-        // Logic for adding WeatherCard
-      }
+      
+      onFound(weather_info)
+
     
     } catch (err: any) {
         setErrMessage(err.message)

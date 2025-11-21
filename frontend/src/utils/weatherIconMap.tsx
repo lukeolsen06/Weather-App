@@ -1,4 +1,4 @@
-import { Sun, Cloud, CloudRain, Snowflake } from 'lucide-react'
+import { Sun, Cloud, CloudRain, Snowflake, Haze } from 'lucide-react'
 import type { JSX } from 'react';
 
 const weatherIconMap: Record<string, JSX.Element> = {
@@ -10,6 +10,7 @@ const weatherIconMap: Record<string, JSX.Element> = {
     "Light rain": <CloudRain className="w-12 h-12 text-blue-400" />,
     "Heavy rain": <CloudRain className="w-12 h-12 text-blue-600" />,
     "Snow": <Snowflake className="w-12 h-12 text-blue-200" />,
+    "Haze": <Haze className="w-12 h-12 text-blue-200" />
   };
 
 export default weatherIconMap

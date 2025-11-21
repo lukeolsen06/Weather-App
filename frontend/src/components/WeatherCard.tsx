@@ -1,5 +1,5 @@
 import type { WeatherDto } from '../types/WeatherDto';
-import { Sun, Cloud, CloudRain, Snowflake } from "lucide-react"
+import { Cloud, } from "lucide-react"
 import weatherIconMap from '../utils/weatherIconMap'
 
 interface WeatherProps {
@@ -9,6 +9,7 @@ interface WeatherProps {
 const WeatherCard = ({ weather }: WeatherProps ) => {
 
   const condition = weather.weather_descriptions[0]
+  console.log(`Condition for ${weather.name}: is ${condition}`)
   const icon = weatherIconMap[condition] ?? <Cloud className="w-12 h-12"></Cloud>
 
   return (
@@ -21,7 +22,7 @@ const WeatherCard = ({ weather }: WeatherProps ) => {
               <div className="flex justify-center mb-2">{icon}</div>
               </div>
               <div className="flex flex-row items-center justify-center mt-6">
-                <div className="font-medium text-6xl">24°</div>
+                <div className="font-medium text-6xl">{weather.temperature}</div>
                 <div className="flex flex-col items-center ml-6">
                   <div>{weather.weather_descriptions[0]}</div>
                   <div className="mt-1">
