@@ -1,5 +1,5 @@
 import type { WeatherDto } from '../types/WeatherDto';
-import { Cloud, } from "lucide-react"
+import { Sun, Cloud, CloudRain, Snowflake, Haze } from "lucide-react"
 import weatherIconMap from '../utils/weatherIconMap'
 
 interface WeatherProps {
@@ -14,15 +14,16 @@ const WeatherCard = ({ weather }: WeatherProps ) => {
 
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center">
-          <div className="flex flex-col bg-white rounded p-4 w-full max-w-xs">
+      <div className="p-4 flex items-center justify-center">
+          <div className="flex flex-col bg-white rounded-2xl p-4 w-full max-w-xs shadow">
               <div className="font-bold text-xl">{weather.name}</div>
-              <div className="text-sm text-gray-500"></div>
+              <div className="text-sm text-gray-500">{weather.country}</div>
+              <div className="text-sm text-gray-500">{weather.current_time}</div>
               <div className="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24">
               <div className="flex justify-center mb-2">{icon}</div>
               </div>
               <div className="flex flex-row items-center justify-center mt-6">
-                <div className="font-medium text-6xl">{weather.temperature}</div>
+                <div className="font-medium text-4xl">{weather.temperature} °F</div>
                 <div className="flex flex-col items-center ml-6">
                   <div>{weather.weather_descriptions[0]}</div>
                   <div className="mt-1">
@@ -31,7 +32,7 @@ const WeatherCard = ({ weather }: WeatherProps ) => {
                   </div>
                   <div>
                     <span className="text-sm"><i className="far fa-long-arrow-down"></i></span>
-                    <span className="text-sm font-light text-gray-500">20°C</span>
+                    <span className="text-sm font-light text-gray-500">Sunset: {weather.sunset}</span>
                   </div>
                 </div>
               </div>
@@ -41,12 +42,16 @@ const WeatherCard = ({ weather }: WeatherProps ) => {
                   <div className="text-sm text-gray-500">{weather.wind_speed}m/h</div>
                 </div>
                 <div className="flex flex-col items-center">
+                  <div className="font-medium text-sm">UV</div>
+                  <div className="text-sm text-gray-500">{weather.uv_index}</div>
+                </div>
+                <div className="flex flex-col items-center">
                   <div className="font-medium text-sm">Humidity</div>
-                  <div className="text-sm text-gray-500">{weather.humidity}</div>
+                  <div className="text-sm text-gray-500">{weather.humidity} %</div>
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="font-medium text-sm">Visibility</div>
-                  <div className="text-sm text-gray-500">{weather.visibility}</div>
+                  <div className="text-sm text-gray-500">{weather.visibility} mi</div>
                 </div>
               </div>
             </div>

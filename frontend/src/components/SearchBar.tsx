@@ -27,14 +27,10 @@ const SearchBar = ( {onFound}: SearchBarProps) => {
       }
       
       onFound(weather_info)
-
     
     } catch (err: any) {
         setErrMessage(err.message)
     }
-
-    //Clear search after user submits
-    setSearchLocation('')
   }
 
   return (

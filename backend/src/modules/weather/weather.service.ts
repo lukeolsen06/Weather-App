@@ -58,7 +58,8 @@ export class WeatherService {
           humidity: data.current.humidity,
           feelslike: data.current.feelslike,
           visibility: data.current.visibility,
-          uv_index: data.current.uv_index
+          uv_index: data.current.uv_index,
+          current_time: data.current.observation_time
         }
 
         // Location has a TTL of 15 minutes in cache

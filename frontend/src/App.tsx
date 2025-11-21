@@ -4,6 +4,7 @@ import WeatherCardList from './components/WeatherCardList'
 import GlobalMap from './components/Globe'
 import type { WeatherDto } from './types/WeatherDto'
 import { useState } from 'react'
+import bg from './assets/background.jpg';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <>
-      <div className="App" style={backgroundColor}>
+      <div className="App min-h-screen bg-cover bg-center bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>
         <TitleSection />
         <SearchBar onFound={addWeatherCard}/>
         <WeatherCardList weatherCards={weatherCards}/>
