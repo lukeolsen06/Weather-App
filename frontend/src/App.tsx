@@ -1,18 +1,20 @@
 import SearchBar from './components/SearchBar'
 import TitleSection from './components/TitleSection'
 import WeatherCardList from './components/WeatherCardList'
+import GlobalMap from './components/GlobalMap'
 import type { WeatherDto } from './types/WeatherDto'
+import type { CoordinatePair } from './types/CoordinatePair'
 import { useState } from 'react'
 import bg from './assets/background.jpg';
 
 function App() {
 
   const [weatherCards, setWeatherCards] = useState<WeatherDto[]>([])
+  const [locationCoords, setLocationCoords] = useState<CoordinatePair[]>([])
 
   const addWeatherCard = (weather: WeatherDto) => {
    
     /* Do not duplicate cards. Only place new card and remove old one if current_time value  has changed, as this reveals new weather data.*/
-    
     // Locations can share the same name, so have to check coordinates
     setWeatherCards(prev => {
       const existing = prev.find(w => 
@@ -20,8 +22,10 @@ function App() {
         w.lat === weather.lat && 
         w.lon === weather.lon);
 
-      // If no cards in list, add
+      const coordinates: CoordinatePair = {latitude: weather.lat, longitude: weather.lon}
+      // If no cards in list, add coordinates to globe and add card to list
       if (!existing) {
+        addLocationCoord(coordinates)
         return [...prev, weather];
       }
 
@@ -33,6 +37,7 @@ function App() {
       }
 
       // At this point, the current times do not match, so this is a new weather instance. Re-render array, modifying in-place if location has same name
+      // Don't need to add to globe because coordinates are already there
       return prev.map(w => 
         w.name === weather.name && 
         w.lat === weather.lat && 
@@ -43,12 +48,25 @@ function App() {
     });
   }
 
+  const addLocationCoord = (coords: CoordinatePair) => {
+    
+    setLocationCoords(prev => {
+      return prev.map(c => 
+        c.latitude == coords.latitude && 
+        c.longitude == coords.longitude
+        ? coords
+        : c
+      );
+    });
+  }
+
   return (
     <>
       <div className="App min-h-screen bg-cover bg-center bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>
         <TitleSection />
         <SearchBar onFound={addWeatherCard}/>
         <WeatherCardList weatherCards={weatherCards}/>
+        <GlobalMap locationCoords={locationCoords}/>
       </div>
     </>
   )
