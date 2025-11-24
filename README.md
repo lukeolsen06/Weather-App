@@ -42,3 +42,31 @@ Retrieve current weather for a given location.
 - **Endpoint**: `GET /api/weather`
 - **Query parameters**:
   - `location` (string, required): city, US ZIP, or coordinates
+
+
+# Local Development
+
+### 1. Clone the repo
+git clone https://github.com/lukeolsen06/Weather-App.git
+cd Weather-App
+
+### 2. Install dependencies
+cd frontend/
+npm install
+cd ../backend 
+npm install 
+
+### 3. Create an environment variable with:
+WEATHERSTACK_URL=https://api.weatherstack.com
+WEATHERSTACK_API_KEY=your_weatherstack_key_here
+
+### 4. Run backend server
+From backend directory, run:
+npm run start:dev
+
+### 5. Run frontend:
+From frontend directory, run:
+npm run dev
+
+
+
