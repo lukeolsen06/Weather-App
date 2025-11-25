@@ -12,7 +12,7 @@ class SearchWeatherService {
 
         // Fetch the Weather API data and gather info in response object
         try {
-            const response = await axios.get<WeatherDto>(`${import.meta.env.VITE_BACKEND_URL}/weather?location=${cleanLocation.value}`)
+            const response = await axios.get<WeatherDto>(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001/api'}/weather?location=${cleanLocation.value}`)
             if (response.data) {
                 console.log(`Received the full Response from the backend service: `, response)
             }
