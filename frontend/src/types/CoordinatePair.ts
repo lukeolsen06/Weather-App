@@ -1,5 +1,6 @@
 
 export type CoordinatePair = {
-    latitude: string,
-    longitude: string
+    lat: number,
+    lng: number,
+    name: string
 }

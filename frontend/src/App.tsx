@@ -22,7 +22,7 @@ function App() {
         w.lat === weather.lat && 
         w.lon === weather.lon);
 
-      const coordinates: CoordinatePair = {latitude: weather.lat, longitude: weather.lon}
+      const coordinates: CoordinatePair = {lat: parseInt(weather.lat, 10), lng: parseInt(weather.lon, 10), name: weather.name}
       // If no cards in list, add coordinates to globe and add card to list
       if (!existing) {
         addLocationCoord(coordinates)
@@ -51,12 +51,13 @@ function App() {
   const addLocationCoord = (coords: CoordinatePair) => {
     
     setLocationCoords(prev => {
-      return prev.map(c => 
-        c.latitude == coords.latitude && 
-        c.longitude == coords.longitude
-        ? coords
-        : c
+      const exists = prev.some( 
+        c => c.lat === coords.lat && c.lng === coords.lng
       );
+      
+      if (exists) return prev;
+
+      return [...prev, coords]
     });
   }
 

@@ -1,5 +1,7 @@
-import React from 'react'
 import type { CoordinatePair } from '../types/CoordinatePair'
+import Globe from 'react-globe.gl';
+import type { GlobeMethods } from "react-globe.gl";
+import { useRef, useEffect } from 'react';
 
 
 interface CoordinatePairProps {
@@ -7,20 +9,32 @@ interface CoordinatePairProps {
 }
 
 const GlobalMap = ({locationCoords}: CoordinatePairProps) => {
+
+    const globeRef = useRef<GlobeMethods | undefined>(undefined)
+
+    useEffect(() => {
+        if (globeRef.current) {
+            globeRef.current.controls().autoRotate = true;
+            globeRef.current.controls().autoRotateSpeed = 0.5;
+        }
+    }, [])
    
     return ( 
-        <div>
-            <div className="max-w-7xl mx-auto">
-                <h1 className="text-center text-4xl font-bold "> {" "}
-                    Your Travel Journey
-                </h1>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                    <div className="lg:col-span-2 bg-white rounded-xl shadow-lg overflow-hidden">
-                    </div>
-                </div>
-            </div>
-        </div>
-        )
-    }
+        <Globe 
+            ref={globeRef}
+            globeImageUrl="https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+            bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
+            backgroundColor="rgba(0,0,0,0)"
+            pointColor={() => "#FF5733"}
+            pointLabel="name"
+            pointsData={locationCoords}
+            pointRadius={0.5}
+            pointAltitude={0.1}
+            pointsMerge={true}
+            width={800}
+            height={600}
+        />
+    )
+}
 
 export default GlobalMap
